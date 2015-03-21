@@ -12,6 +12,6 @@ trait KuromojiAnalysis {
   def parse(str:String) = Tokenizer.builder.mode(Tokenizer.Mode.NORMAL).build.tokenize(str).toArray map {
     s => new WordData(s.asInstanceOf[Token].getSurfaceForm, s.asInstanceOf[Token].getAllFeatures)
   }
-
-  case class WordData(surface:String, feature:String)
 }
+
+case class WordData(surface:String, feature:String)

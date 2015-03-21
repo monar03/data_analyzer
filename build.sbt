@@ -8,5 +8,6 @@ resolvers += "Atilika Open Source repository" at "http://www.atilika.org/nexus/c
 
 libraryDependencies ++= Seq(
   "org.atilika.kuromoji" % "kuromoji" % "0.7.7",
-  "org.scalatest" %% "scalatest" % "2.2.4"
+  "org.scalatest" %% "scalatest" % "2.2.4",
+  "org.jsoup" % "jsoup" % "1.8.1"
 )
