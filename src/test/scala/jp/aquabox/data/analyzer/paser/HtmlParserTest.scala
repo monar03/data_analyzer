@@ -2,8 +2,6 @@ package jp.aquabox.data.analyzer.paser
 
 import org.scalatest.{Matchers, FunSpec}
 
-import scala.util.control.Exception
-
 /**
  * Created by motonari on 15/03/21.
  */

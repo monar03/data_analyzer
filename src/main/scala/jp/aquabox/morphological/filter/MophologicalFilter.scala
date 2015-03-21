@@ -1,4 +1,6 @@
-package jp.aquabox.morphological
+package jp.aquabox.morphological.filter
+
+import jp.aquabox.morphological.{KuromojiAnalysis, WordData}
 
 /**
  * NGワードのフィルタ
@@ -17,12 +19,12 @@ trait MophologicalNGFilter extends KuromojiAnalysis {
  * 類似フィルター
  */
 trait MophologicalMatchingFilter extends KuromojiAnalysis {
-  def filter(str1:String, str2:String) = {
+  def filter(str1:String, str2:String, p:Double = 0.7f) = {
     val sigmaXY:Double = parse(str1) intersect parse(str2) length
     val sigmaX:Double = Math.sqrt(parse(str1).length)
     val sigmaY:Double = Math.sqrt(parse(str2).length)
 
-    sigmaXY / (sigmaX * sigmaY) > 0.7
+    sigmaXY / (sigmaX * sigmaY) > p
   }
 
 
@@ -31,7 +33,7 @@ trait MophologicalMatchingFilter extends KuromojiAnalysis {
     val sigmaX:Double = Math.sqrt(str_list1.length)
     val sigmaY:Double = Math.sqrt(str_list2.length)
 
-    sigmaXY / (sigmaX * sigmaY) > 0.7
+    sigmaXY / (sigmaX * sigmaY) > 0.7f
   }
 }
 

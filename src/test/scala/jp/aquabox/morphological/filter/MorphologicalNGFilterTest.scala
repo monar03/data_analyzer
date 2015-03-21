@@ -1,6 +1,6 @@
-package jp.aquabox.morphological
+package jp.aquabox.morphological.filter
 
-import org.scalatest.{Matchers, FunSpec}
+import org.scalatest.{FunSpec, Matchers}
 
 /**
  * Created by motonari on 15/03/21.
