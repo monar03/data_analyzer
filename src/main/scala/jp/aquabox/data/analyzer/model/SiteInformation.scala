@@ -1,12 +1,14 @@
 package jp.aquabox.data.analyzer.model
 
 import java.sql.Timestamp
+import java.util.Date
 import scala.slick.driver.MySQLDriver.simple._
 import scala.slick.lifted.ProvenShape
 
 /**
  * Created by motonari on 15/03/22.
  */
+object SiteInformationDao extends SiteInformationReader with SiteInformationWriter
 
 trait SiteInformationTable extends DatabaseInformation {
   val siteinformation = TableQuery[SiteInformation]
@@ -37,6 +39,9 @@ trait SiteInformationReader extends SiteInformationTable {
  * サイト情報更新
  */
 trait SiteInformationWriter extends SiteInformationTable {
+  def set(id:String, url:String, domain:String, title:String, description:String, image:String) = Database.forURL(dsn, driver = driver) withSession {
+    implicit session => siteinformation +=(id, url, domain, title, description, image, Option(new Timestamp(new Date().getTime)))
+  }
 }
 
 class SiteInformation(tag: Tag) extends Table[(String, String, String, String, String, String, Option[Timestamp])](tag, "site_data"){

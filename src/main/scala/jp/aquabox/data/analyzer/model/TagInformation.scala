@@ -6,6 +6,7 @@ import scala.slick.lifted.ProvenShape
 /**
  * Created by motonari on 15/03/22.
  */
+object TagInformationDao extends TagInformationReader with TagInformationWriter
 
 trait TagInformationTable extends DatabaseInformation{
   val tag = TableQuery[TagInformation]
@@ -23,7 +24,6 @@ trait TagInformationTable extends DatabaseInformation{
  * タグ情報取得
  */
 trait TagInformationReader extends TagInformationTable {
-
   def getAll = Database.forURL(dsn, driver = driver) withSession {
     implicit session => tag.list
   }
@@ -33,6 +33,9 @@ trait TagInformationReader extends TagInformationTable {
  * タグ情報書き込み
  */
 trait TagInformationWriter extends TagInformationTable {
+  def set(url:String, tag_str:String, score:Int) = Database.forURL(dsn, driver = driver) withSession {
+    implicit session => tag +=(url, tag_str, score)
+  }
 }
 
 class TagInformation(tag: Tag) extends Table[(String, String, Int)](tag, "tags"){
