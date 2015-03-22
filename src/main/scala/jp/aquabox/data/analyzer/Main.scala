@@ -12,7 +12,7 @@ import jp.aquabox.morphological.{WordData, KuromojiAnalysis}
 object Main extends KuromojiAnalysis {
 
   def main(args: Array[String]): Unit = {
-    val html = HtmlParser.parseFromUrl("http://headlines.yahoo.co.jp/hl?a=20150322-00000004-asahi-soci")
+    val html = HtmlParser.parseFromUrl("http://headlines.yahoo.co.jp/hl?a=20150321-00000031-scn-bus_all")
     try {
       SiteInformationDao.set(
         html.url,
@@ -29,7 +29,7 @@ object Main extends KuromojiAnalysis {
         }
       }
     } catch {
-      case e:Exception => println("information already exists")
+      case e => println("information already exists")
     }
   }
 }
