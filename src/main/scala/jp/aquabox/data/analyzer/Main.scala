@@ -29,7 +29,7 @@ object Main extends KuromojiAnalysis {
         }
       }
     } catch {
-      case e => println("information already exists")
+      case e:Exception => println("information already exists")
     }
   }
 }
