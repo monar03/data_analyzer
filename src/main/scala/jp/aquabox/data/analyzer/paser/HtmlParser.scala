@@ -1,5 +1,6 @@
 package jp.aquabox.data.analyzer.paser
 
+import jp.aquabox.morphological.Similar
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
@@ -10,6 +11,7 @@ object HtmlParser {
   def parseFromUrl(url:String) = get(Jsoup.connect(url).get, url)
 
   def parse(html:String, url:String="") = get(Jsoup.parse(html), url)
+
 
   private[this] def get(doc:Document, url:String) = {
     val title = doc.title match {
@@ -26,7 +28,10 @@ object HtmlParser {
 
     var description = ""
     try {
-      description = doc.head.getElementsByAttributeValue("name", "description").get(0).attributes().get("content")
+      description = Similar.get(title, doc.body.toString.replaceAll("""<(\"[^\"]*\"|'[^']*'|[^'\">])*>""", ""))
+      if(description.isEmpty) {
+        description = doc.head.getElementsByAttributeValue("name", "description").get(0).attributes().get("content")
+      }
     } catch {
       case e:Exception => description = ""
     }
