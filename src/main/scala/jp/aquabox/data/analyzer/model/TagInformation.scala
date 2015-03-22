@@ -7,14 +7,23 @@ import scala.slick.lifted.ProvenShape
  * Created by motonari on 15/03/22.
  */
 
-trait TagInformationTable {
+trait TagInformationTable extends DatabaseInformation{
   val tag = TableQuery[TagInformation]
+
+  try {
+    Database.forURL(dsn, driver = driver) withSession {
+      implicit session => tag.ddl.create
+    }
+  } catch {
+    case e:Exception => println(e.getMessage)
+  }
 }
 
 /**
  * タグ情報取得
  */
-trait TagInformationReader extends DatabaseInformation with TagInformationTable {
+trait TagInformationReader extends TagInformationTable {
+
   def getAll = Database.forURL(dsn, driver = driver) withSession {
     implicit session => tag.list
   }
@@ -23,7 +32,7 @@ trait TagInformationReader extends DatabaseInformation with TagInformationTable 
 /**
  * タグ情報書き込み
  */
-trait TagInformationWriter extends DatabaseInformation with TagInformationTable {
+trait TagInformationWriter extends TagInformationTable {
 }
 
 class TagInformation(tag: Tag) extends Table[(String, String, Int)](tag, "tags"){

@@ -8,14 +8,26 @@ import scala.slick.lifted.ProvenShape
  * Created by motonari on 15/03/22.
  */
 
-trait SiteInformationTable {
+trait SiteInformationTable extends DatabaseInformation {
   val siteinformation = TableQuery[SiteInformation]
+
+  try {
+    Database.forURL(dsn, driver = driver) withSession {
+      implicit session => siteinformation.ddl.create
+    }
+  } catch {
+    case e:Exception => println(e.getMessage)
+  }
 }
 
 /**
  * サイト情報取得
  */
-trait SiteInformationReader extends DatabaseInformation with SiteInformationTable {
+trait SiteInformationReader extends SiteInformationTable {
+  Database.forURL(dsn, driver = driver) withSession {
+    implicit session => siteinformation.ddl.create
+  }
+
   def getAll = Database.forURL(dsn, driver = driver) withSession {
     implicit session => siteinformation.list
   }
@@ -24,7 +36,7 @@ trait SiteInformationReader extends DatabaseInformation with SiteInformationTabl
 /**
  * サイト情報更新
  */
-trait SiteInformationWriter extends DatabaseInformation with SiteInformationTable {
+trait SiteInformationWriter extends SiteInformationTable {
 }
 
 class SiteInformation(tag: Tag) extends Table[(String, String, String, String, String, String, Option[Timestamp])](tag, "site_data"){
