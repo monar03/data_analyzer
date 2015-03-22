@@ -8,11 +8,31 @@ import org.jsoup.nodes.Document
  * Created by motonari on 15/03/21.
  */
 object HtmlParser {
+  /**
+   * URLからHTMLデータをパースする
+   *
+   * @param url
+   * @return
+   */
   def parseFromUrl(url:String) = get(Jsoup.connect(url).get, url)
 
+  /**
+   * HTMLデータのパース
+   *
+   * @param html
+   * @param url
+   * @return
+   */
   def parse(html:String, url:String="") = get(Jsoup.parse(html), url)
 
 
+  /**
+   * HTMLデータの取得
+   *
+   * @param doc
+   * @param url
+   * @return
+   */
   private[this] def get(doc:Document, url:String) = {
     val title = doc.title match {
       case s if s.isEmpty => throw new Exception("empty title")

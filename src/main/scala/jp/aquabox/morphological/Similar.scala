@@ -8,6 +8,13 @@ import jp.aquabox.morphological.filter.MophologicalMatchingFilter
  * Created by motonari on 15/03/21.
  */
 object Similar extends MophologicalMatchingFilter {
+  /**
+   * 重要分の取得
+   *
+   * @param main
+   * @param content
+   * @return
+   */
   def get(main:String, content:String) = liners(content) filter (p => filter(main, p, 0.5f)) mkString("\n")
 
   private[this] def liners(text:String) = text.split("\n")
