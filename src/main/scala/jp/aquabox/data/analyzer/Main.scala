@@ -8,7 +8,7 @@ import jp.aquabox.data.analyzer.paser.HtmlParser
 object Main {
 
   def main(args: Array[String]): Unit = {
-    val html = HtmlParser.parseFromUrl("http://headlines.yahoo.co.jp/hl?a=20150321-00000065-jij-pol")
+    val html = HtmlParser.parseFromUrl("http://headlines.yahoo.co.jp/hl?a=20150320-00000289-sph-soci")
     println(html.description)
     println(html.title)
   }

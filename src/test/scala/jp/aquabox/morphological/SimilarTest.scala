@@ -18,8 +18,8 @@ class SimilarTest extends FunSpec with Matchers {
         """.trim
       ) shouldBe
         """
-          今日はいい天気
-          今日はいい天気
+今日はいい天気
+今日はいい天気
         """.trim
     }
   }

@@ -15,7 +15,7 @@ object Similar extends MophologicalMatchingFilter {
    * @param content
    * @return
    */
-  def get(main:String, content:String) = liners(content) filter (p => filter(main, p, 0.5f)) mkString("\n")
+  def get(main:String, content:String) = liners(content) filter (p => filter(main, p.trim, 0.5f)) map (p => p.trim) mkString("\n")
 
   private[this] def liners(text:String) = text.split("\n")
 }
