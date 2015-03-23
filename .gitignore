@@ -1,6 +1,8 @@
 *.class
 *.log
 
+src/main/scala/jp/aquabox/data/analyzer/twitter/TwitterTokens.scala
+
 # sbt specific
 .idea/
 .cache/
@@ -17,4 +19,3 @@ project/plugins/project/
 .scala_dependencies
 .worksheet
 
-src/main/scala/jp/aquabox/data/analyzer/twitter/TwitterTokens.scala
