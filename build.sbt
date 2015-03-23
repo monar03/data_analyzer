@@ -12,5 +12,7 @@ libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "5.1.34",
   "com.typesafe.slick" %% "slick" % "2.1.0",
   "org.slf4j" % "slf4j-nop" % "1.7.7",
-  "org.jsoup" % "jsoup" % "1.8.1"
+  "org.jsoup" % "jsoup" % "1.8.1",
+  "org.twitter4j" % "twitter4j-core" % "4.0.2",
+  "org.twitter4j" % "twitter4j-stream" % "4.0.2"
 )
