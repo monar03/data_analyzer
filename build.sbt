@@ -14,5 +14,6 @@ libraryDependencies ++= Seq(
   "org.slf4j" % "slf4j-nop" % "1.7.7",
   "org.jsoup" % "jsoup" % "1.8.1",
   "org.twitter4j" % "twitter4j-core" % "4.0.2",
-  "org.twitter4j" % "twitter4j-stream" % "4.0.2"
+  "org.twitter4j" % "twitter4j-stream" % "4.0.2",
+  "com.typesafe.akka" %% "akka-actor" %  "2.3.7"
 )

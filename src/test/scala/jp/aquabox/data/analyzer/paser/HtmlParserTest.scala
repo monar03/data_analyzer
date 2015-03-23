@@ -19,11 +19,30 @@ class HtmlParserTest extends FunSpec with Matchers {
            </head>
           </html>
         """
+
       html.title shouldBe "test"
       html.description shouldBe "description"
       html.thumbnail shouldBe "thumbnail"
-
       html.url shouldBe "canonical"
+    }
+
+    it("Alternateあり") {
+      val html = HtmlParser parse
+        """
+          <html>
+           <head>
+             <title>test</title>
+             <meta property="og:image" content="thumbnail" />
+             <meta name="description" content="description" />
+             <meta rel="alternate" href="alternate" />
+           </head>
+          </html>
+        """
+
+      html.title shouldBe "test"
+      html.description shouldBe "description"
+      html.thumbnail shouldBe "thumbnail"
+      html.url shouldBe "alternate"
     }
 
     it("Urlから取得") {

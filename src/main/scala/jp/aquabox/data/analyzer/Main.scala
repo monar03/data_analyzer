@@ -2,7 +2,6 @@ package analyzer
 
 import jp.aquabox.data.analyzer.DataAnalyzerCalculator
 
-
 /**
  * Created by motonari on 15/03/21.
  */

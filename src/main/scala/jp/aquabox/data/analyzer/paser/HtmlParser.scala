@@ -43,7 +43,13 @@ object HtmlParser {
     try {
       turl = doc.head.getElementsByAttributeValue("rel", "canonical").get(0).attributes().get("href")
     } catch {
-      case e:Exception => turl = url
+      case e:Exception => {
+        try {
+          turl = doc.head.getElementsByAttributeValue("rel", "alternate").get(0).attributes().get("href")
+        } catch {
+          case e:Exception => turl = url
+        }
+      }
     }
 
     var description = ""
