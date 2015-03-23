@@ -59,13 +59,7 @@ class DataAnalyzerActor extends Actor with KuromojiAnalysis {
    * @return
    */
   override def receive: Receive = {
-    case v:List[URLEntity] => v filter(
-      v =>
-        {
-          val host = new URL(v.getExpandedURL).getHost
-          host != "bit.ly" && host != "dlvr.it" && host != "ift.tt"
-        }
-      ) map {
+    case v:List[URLEntity] => v map {
         url => calc(url.getExpandedURL)
       }
       case v =>
@@ -75,24 +69,27 @@ class DataAnalyzerActor extends Actor with KuromojiAnalysis {
     println("calc start :" + url)
     val html = HtmlParser.parseFromUrl(url)
     try {
-      SiteInformationDao.set(
-        html.url,
-        html.url,
-        (new URL(html.url)).getHost,
-        html.title,
-        html.description,
-        html.thumbnail
-      )
+      val host = (new URL(html.url)).getHost
+      if(host != "bit.ly" && host != "dlvr.it" && host != "ift.tt") {
+        SiteInformationDao.set(
+          html.url,
+          html.url,
+          host,
+          html.title,
+          html.description,
+          html.thumbnail
+        )
 
-      parse(html.title + "\n" + html.description) map {
-        case WordData(s, f) => f.split(",")(0) match {
-          case f if f == "名詞" =>
-            try {
-              TagInformationDao.set(html.url, s, 1)
-            } catch {
-              case e:Exception => println(e.getMessage)
-            }
-          case f => println(s + ":" + f)
+        parse(html.title + "\n" + html.description) map {
+          case WordData(s, f) => f.split(",")(0) match {
+            case f if f == "名詞" =>
+              try {
+                TagInformationDao.set(html.url, s, 1)
+              } catch {
+                case e: Exception => println(e.getMessage)
+              }
+            case f => println(s + ":" + f)
+          }
         }
       }
     } catch {
