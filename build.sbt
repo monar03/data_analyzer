@@ -15,5 +15,8 @@ libraryDependencies ++= Seq(
   "org.jsoup" % "jsoup" % "1.8.1",
   "org.twitter4j" % "twitter4j-core" % "4.0.2",
   "org.twitter4j" % "twitter4j-stream" % "4.0.2",
+  "de.l3s.boilerpipe" % "boilerpipe" % "1.1.0",
+  "xerces" % "xercesImpl" % "2.11.0",
+  "net.sourceforge.nekohtml" % "nekohtml" % "1.9.21",
   "com.typesafe.akka" %% "akka-actor" %  "2.3.7"
 )

@@ -1,6 +1,6 @@
 package jp.aquabox.data.analyzer.paser
 
-import jp.aquabox.morphological.Similar
+import de.l3s.boilerpipe.extractors.ArticleExtractor
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
@@ -54,13 +54,7 @@ object HtmlParser {
 
     var description = ""
     try {
-      doc.select("input").remove()
-      doc.select("script").remove()
-      doc.select("noscript").remove()
-      doc.select("style").remove()
-
-      description = Similar.get(title, doc.body.toString.replaceAll("""<(\"[^\"]*\"|'[^']*'|[^'\">])*>""", ""))
-
+      description = ArticleExtractor.getInstance.getText(doc.html)
       if(description.isEmpty) {
         description = doc.head.getElementsByAttributeValue("name", "description").get(0).attributes().get("content")
       }
