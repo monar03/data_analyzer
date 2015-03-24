@@ -54,6 +54,11 @@ object HtmlParser {
 
     var description = ""
     try {
+      doc.select("input").remove()
+      doc.select("script").remove()
+      doc.select("noscript").remove()
+      doc.select("style").remove()
+
       description = ArticleExtractor.getInstance.getText(doc.html)
       if(description.isEmpty) {
         description = doc.head.getElementsByAttributeValue("name", "description").get(0).attributes().get("content")
