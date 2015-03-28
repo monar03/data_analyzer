@@ -1,7 +1,11 @@
-package jp.aquabox.data.analyzer.model
+package code.model
 
 import java.sql.Timestamp
 import java.util.Date
+
+
+import jp.aquabox.data.analyzer.model.DatabaseInformation
+
 import scala.slick.driver.MySQLDriver.simple._
 import scala.slick.lifted.ProvenShape
 
@@ -26,21 +30,27 @@ trait SiteInformationTable extends DatabaseInformation {
  * サイト情報取得
  */
 trait SiteInformationReader extends SiteInformationTable {
-  def getAll = Database.forURL(dsn, driver = driver) withSession {
-    implicit session => siteinformation.list
+  def all = Database.forURL(dsn, driver = driver) withSession {
+    implicit session => siteinformation.drop(0).take(3).list
   }
+
+
+  def hostlist = Database.forURL(dsn, driver = driver) withSession {
+    implicit session => siteinformation.map(row => (row.domain)).list.distinct.drop(0).take(3)
+  }
+
 }
 
 /**
  * サイト情報更新
  */
 trait SiteInformationWriter extends SiteInformationTable {
-  def set(id:String, url:String, domain:String, title:String, description:String, image:String) = Database.forURL(dsn, driver = driver) withSession {
-    implicit session => siteinformation +=(id, url, domain, title, description, image, Option(new Timestamp(new Date().getTime)))
+  def set(id:String, url:String, domain:String, title:String, description:String, image:String, site_name:String) = Database.forURL(dsn, driver = driver) withSession {
+    implicit session => siteinformation +=(id, url, domain, title, description, image, site_name, Option(new Timestamp(new Date().getTime)))
   }
 }
 
-class SiteInformation(tag: Tag) extends Table[(String, String, String, String, String, String, Option[Timestamp])](tag, "site_data"){
+class SiteInformation(tag: Tag) extends Table[(String, String, String, String, String, String, String, Option[Timestamp])](tag, "site_data"){
   /**
    * ID
    * @return
@@ -78,10 +88,16 @@ class SiteInformation(tag: Tag) extends Table[(String, String, String, String, S
   def image = column[String]("image")
 
   /**
+   * イメージ
+   * @return
+   */
+  def site_name = column[String]("site_name")
+
+  /**
    * 取得日時
    * @return
    */
   def date = column[Option[Timestamp]]("date")
 
-  def * : ProvenShape[(String, String, String, String, String, String, Option[Timestamp])] = (id, url, domain, title, description, image, date)
+  def * : ProvenShape[(String, String, String, String, String, String, String, Option[Timestamp])] = (id, url, domain, title, description, image, site_name, date)
 }
