@@ -1,10 +1,7 @@
-package code.model
+package jp.aquabox.data.analyzer.model
 
 import java.sql.Timestamp
 import java.util.Date
-
-
-import jp.aquabox.data.analyzer.model.DatabaseInformation
 
 import scala.slick.driver.MySQLDriver.simple._
 import scala.slick.lifted.ProvenShape
