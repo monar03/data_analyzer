@@ -74,14 +74,22 @@ object HtmlParser {
       case e:Exception => image = ""
     }
 
+    var site_name = ""
+    try {
+      site_name = doc.head.getElementsByAttributeValue("property", "og:site_name").get(0).attributes().get("content")
+    } catch {
+      case e:Exception => site_name = ""
+    }
+
     new HtmlData(
       title,
       image,
       description,
-      turl
+      turl,
+      site_name
     )
   }
 }
 
-case class HtmlData(title:String, thumbnail:String, description:String, url:String)
+case class HtmlData(title:String, thumbnail:String, description:String, url:String, site_name:String)
 

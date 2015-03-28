@@ -77,7 +77,8 @@ class DataAnalyzerActor extends Actor with KuromojiAnalysis {
           host,
           html.title,
           html.description,
-          html.thumbnail
+          html.thumbnail,
+          html.site_name
         )
 
         parse(html.title + "\n" + html.description) map {
