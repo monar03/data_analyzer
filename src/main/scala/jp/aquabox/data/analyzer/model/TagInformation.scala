@@ -33,17 +33,23 @@ trait TagInformationReader extends TagInformationTable {
  * タグ情報書き込み
  */
 trait TagInformationWriter extends TagInformationTable {
-  def set(url:String, tag_str:String, score:Int) = Database.forURL(dsn, driver = driver) withSession {
-    implicit session => tag +=(url, tag_str, score)
+  def set(url:String, host:String, tag_str:String, score:Int) = Database.forURL(dsn, driver = driver) withSession {
+    implicit session => tag +=(url, host, tag_str, score)
   }
 }
 
-class TagInformation(tag: Tag) extends Table[(String, String, Int)](tag, "tags"){
+class TagInformation(tag: Tag) extends Table[(String, String, String, Int)](tag, "tags"){
   /**
    * ID
    * @return
    */
   def id = column[String]("id")
+
+  /**
+   * Host
+   * @return
+   */
+  def host = column[String]("host")
 
   /**
    * タグ名
@@ -57,5 +63,5 @@ class TagInformation(tag: Tag) extends Table[(String, String, Int)](tag, "tags")
    */
   def score = column[Int]("score")
 
-  def * : ProvenShape[(String, String, Int)] = (id, tag_str, score)
+  def * : ProvenShape[(String, String, String, Int)] = (id, host, tag_str, score)
 }
