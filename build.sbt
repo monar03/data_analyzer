@@ -4,7 +4,11 @@ version := "1.0"
 
 scalaVersion := "2.11.4"
 
-resolvers += "Atilika Open Source repository" at "http://www.atilika.org/nexus/content/repositories/atilika"
+resolvers ++= Seq(
+  "Atilika Open Source repository" at "http://www.atilika.org/nexus/content/repositories/atilika",
+  "anormcypher" at "http://repo.anormcypher.org/",
+  "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases/"
+)
 
 libraryDependencies ++= Seq(
   "org.atilika.kuromoji" % "kuromoji" % "0.7.7",
@@ -18,5 +22,6 @@ libraryDependencies ++= Seq(
   "de.l3s.boilerpipe" % "boilerpipe" % "1.1.0",
   "xerces" % "xercesImpl" % "2.11.0",
   "net.sourceforge.nekohtml" % "nekohtml" % "1.9.21",
-  "com.typesafe.akka" %% "akka-actor" %  "2.3.7"
+  "com.typesafe.akka" %% "akka-actor" %  "2.3.7",
+  "org.anormcypher" %% "anormcypher" % "0.6.0"
 )
