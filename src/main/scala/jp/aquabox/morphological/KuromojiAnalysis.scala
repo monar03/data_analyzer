@@ -34,7 +34,7 @@ trait KuromojiAnalysis {
               prev_element = Some(s)
             }
           }
-          case v =>
+          case v => prev_element = None
         }
       }
       case v =>
