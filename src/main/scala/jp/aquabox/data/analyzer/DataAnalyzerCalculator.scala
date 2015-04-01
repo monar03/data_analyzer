@@ -81,11 +81,15 @@ class DataAnalyzerActor extends Actor with KuromojiAnalysis {
           html.site_name
         )
 
-        nounlist(html.title + "\n" + html.description) map {
-          case v => try {
-            TagInformationDao.set(html.url, host, v, 1)
-          } catch {
-            case e: Exception => println(e.getMessage)
+        parse(html.title + "\n" + html.description) map {
+          case WordData(s, f) => f.split(",")(0) match {
+            case f if f == "名詞" =>
+              try {
+                TagInformationDao.set(html.url, host, s, 1)
+              } catch {
+                case e: Exception => println(e.getMessage)
+              }
+            case f => println(s + ":" + f)
           }
         }
       }

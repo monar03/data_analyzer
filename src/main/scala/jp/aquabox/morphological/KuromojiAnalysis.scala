@@ -15,7 +15,19 @@ trait KuromojiAnalysis {
     s => new WordData(s.asInstanceOf[Token].getSurfaceForm, s.asInstanceOf[Token].getAllFeatures)
   }
 
-  def nounlist(str:String) = {
+
+  def nounlist(str:String) = parse(str).map {
+    case WordData(s, f) => {
+      f.split(",")(0) match {
+        case v if v == "名詞" => s
+        case v =>
+      }
+    }
+    case v =>
+  }
+
+
+  def nounstrlist(str:String) = {
     val list = ListBuffer.empty[String]
     var prev_element:Option[String] = None
     parse(str).map {
