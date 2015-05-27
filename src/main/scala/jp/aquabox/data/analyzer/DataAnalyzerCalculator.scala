@@ -83,13 +83,13 @@ class DataAnalyzerActor extends Actor with KuromojiAnalysis {
 
         parse(html.title + "\n" + html.description) map {
           case WordData(s, f) => f.split(",")(0) match {
-            case f if f == "名詞" =>
+            case pos if pos == "名詞" & f.split(",")(1) != "数" =>
               try {
                 TagInformationDao.set(html.url, host, s, 1)
               } catch {
                 case e: Exception => println(e.getMessage)
               }
-            case f => println(s + ":" + f)
+            case pos => println(s + ":" + pos)
           }
         }
       }
